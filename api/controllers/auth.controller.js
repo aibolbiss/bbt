@@ -37,7 +37,7 @@
 // };
 
 export const register = (req, res) => {
-  res.send('Register is working!');
+  console.log(req.body);
 };
 
 export const login = (req, res) => {
