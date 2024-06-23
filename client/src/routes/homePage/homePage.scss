@@ -30,6 +30,8 @@
       .title {
         font-size: 64px;
         color: #9f70f6;
+        height: 150px;
+        margin-bottom: 10px;
 
         @include lg {
           font-size: 48px;
