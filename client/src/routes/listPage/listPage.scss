@@ -21,7 +21,11 @@
   .mapContainer {
     flex: 2;
     height: 100%;
-    background-color: #fcf5f3;
+    background-color: #e5d7ff;
+
+    p {
+      text-align: center;
+    }
 
     @include md {
       display: none;

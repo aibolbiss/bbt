@@ -50,12 +50,15 @@
 
   .imgContainer {
     flex: 2;
-    background-color: #fcf5f3;
+    background-color: #e5d7ff;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     img {
       width: 100%;
+      position: absolute;
+      right: 40px;
     }
   }
 }

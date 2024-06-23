@@ -57,7 +57,7 @@ function ProfilePage() {
           <Suspense fallback={<p>Loading...</p>}>
             <Await
               resolve={data.postResponse}
-              errorElement={<p>Error loading posts!</p>}
+              errorElement={<p>Ошибка при загрузке!</p>}
             >
               {(postResponse) => <List posts={postResponse.data.userPosts} />}
             </Await>
@@ -68,7 +68,7 @@ function ProfilePage() {
           <Suspense fallback={<p>Loading...</p>}>
             <Await
               resolve={data.postResponse}
-              errorElement={<p>Error loading posts!</p>}
+              errorElement={<p>Ошибка при загрузке!</p>}
             >
               {(postResponse) => <List posts={postResponse.data.savedPosts} />}
             </Await>

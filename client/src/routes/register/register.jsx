@@ -38,25 +38,25 @@ function Register() {
     <div className='registerPage'>
       <div className='formContainer'>
         <form onSubmit={handleSubmit}>
-          <h1>Create an Account</h1>
+          <h1>Создать аккаунт</h1>
           <input
             name='username'
             type='text'
-            placeholder='Username'
+            placeholder='Имя пользователя'
           />
           <input
             name='email'
             type='text'
-            placeholder='Email'
+            placeholder='Почта'
           />
           <input
             name='password'
             type='password'
-            placeholder='Password'
+            placeholder='Пароль'
           />
-          <button disabled={isLoading}>Register</button>
+          <button disabled={isLoading}>Регистрация</button>
           {error && <span>{error}</span>}
-          <Link to='/login'>Do you have an account?</Link>
+          <Link to='/login'>У вас есть учетная запись?</Link>
         </form>
       </div>
       <div className='imgContainer'>

@@ -40,24 +40,24 @@ function Login() {
     <div className='login'>
       <div className='formContainer'>
         <form onSubmit={handleSubmit}>
-          <h1>Welcome back</h1>
+          <h1>Добро пожаловать</h1>
           <input
             name='username'
             required
             minLength={3}
             maxLength={20}
             type='text'
-            placeholder='Username'
+            placeholder='Имя пользователя'
           />
           <input
             name='password'
             type='password'
             required
-            placeholder='Password'
+            placeholder='Пароль'
           />
-          <button disabled={isLoading}>Login</button>
+          <button disabled={isLoading}>Войти</button>
           {error && <span>{error}</span>}
-          <Link to='/register'>{"Don't"} you have an account?</Link>
+          <Link to='/register'>У вас нету учетной записи?</Link>
         </form>
       </div>
       <div className='imgContainer'>
