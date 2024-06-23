@@ -61,7 +61,7 @@ export const login = async (req, res) => {
         maxAge: age,
       })
       .status(200)
-      .json({ message: 'Login Successful' });
+      .json({ message: 'Login Successful!' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Failed to Login!' });
@@ -69,5 +69,5 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.send('Logout is working!');
+  res.clearCookie('token').status(200).json({ message: 'Logout Successful!' });
 };
