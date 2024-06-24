@@ -24,7 +24,7 @@ model Post {
   bathroom   Int
   latitude   String
   longitude  String
-  type       Type
+  type       String
   property   Property
   createdAt  DateTime    @default(now())
   user       User        @relation(fields: [userId], references: [id])
@@ -33,10 +33,10 @@ model Post {
   savedPosts SavedPost[]
 }
 
-enum Type {
-  buy
-  rent
-}
+// enum Type {
+//   buy
+//   rent
+// }
 
 enum Property {
   apartment

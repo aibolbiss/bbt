@@ -1,15 +1,75 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './newPostPage.scss';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import apiRequest from '@/lib/apiRequest';
 import UploadWidget from '@/components/uploadWidget/UploadWidget';
 import { useNavigate } from 'react-router-dom';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+// import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import markerIconUrl from '../../../public/geo-red.png';
 
 function NewPostPage() {
   const [value, setValue] = useState('');
   const [images, setImages] = useState([]);
   const [error, setError] = useState('');
+
+  // Map
+  const [position, setPosition] = useState(null);
+  const [address, setAddress] = useState('');
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+
+  const getCurrentLocation = async () => {
+    try {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          setPosition([latitude, longitude]);
+          setLatitude(latitude);
+          setLongitude(longitude);
+          reverseGeocode(latitude, longitude);
+        });
+      } else {
+        console.error('Геолокация не поддерживается в вашем браузере');
+      }
+    } catch (error) {
+      console.error('Ошибка при получении местоположения:', error);
+    }
+  };
+
+  const reverseGeocode = async (lat, lng) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`
+      );
+      const data = await response.json();
+      setAddress(data.display_name);
+    } catch (error) {
+      console.error('Ошибка при обратном геокодировании:', error);
+    }
+  };
+
+  useEffect(() => {
+    getCurrentLocation();
+  }, []);
+
+  const handleMarkerDragEnd = (e) => {
+    const marker = e.target;
+    const newPosition = marker.getLatLng();
+    setLatitude(newPosition.lat);
+    setLongitude(newPosition.lng);
+    reverseGeocode(newPosition.lat, newPosition.lng);
+  };
+
+  // Создаем иконку для метки
+  const markerIcon = new L.Icon({
+    iconUrl: markerIconUrl,
+    iconSize: [32, 32], // Размер иконки
+    iconAnchor: [16, 32], // Точка крепления иконки (центр нижней части)
+    popupAnchor: [0, -32], // Позиция всплывающего окна относительно иконки
+  });
 
   const navigate = useNavigate();
 
@@ -54,11 +114,11 @@ function NewPostPage() {
   return (
     <div className='newPostPage'>
       <div className='formContainer'>
-        <h1>Add New Post</h1>
+        <h1>Создать объявление</h1>
         <div className='wrapper'>
           <form onSubmit={handleSubmit}>
             <div className='item'>
-              <label htmlFor='title'>Title</label>
+              <label htmlFor='title'>Заголовок</label>
               <input
                 id='title'
                 name='title'
@@ -66,7 +126,7 @@ function NewPostPage() {
               />
             </div>
             <div className='item'>
-              <label htmlFor='price'>Price</label>
+              <label htmlFor='price'>Цена/Бюджет</label>
               <input
                 id='price'
                 name='price'
@@ -74,23 +134,48 @@ function NewPostPage() {
               />
             </div>
             <div className='item'>
-              <label htmlFor='address'>Address</label>
-              <input
-                id='address'
-                name='address'
-                type='text'
-              />
+              <label htmlFor='type'>Тип</label>
+              <select name='type'>
+                <option
+                  value='Попутчики'
+                  defaultChecked
+                >
+                  Попутчики
+                </option>
+                <option value='Жилье'>Жилье</option>
+              </select>
             </div>
             <div className='item description'>
-              <label htmlFor='desc'>Description</label>
+              <label htmlFor='desc'>Описание</label>
               <ReactQuill
                 theme='snow'
                 onChange={setValue}
                 value={value}
               />
             </div>
+
+            {position ? (
+              <MapContainer
+                center={position}
+                zoom={13}
+                style={{ height: '400px', width: '100%' }}
+              >
+                <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+                <Marker
+                  position={position}
+                  icon={markerIcon}
+                  draggable={true}
+                  eventHandlers={{ dragend: handleMarkerDragEnd }}
+                >
+                  <Popup>Ваше местоположение</Popup>
+                </Marker>
+              </MapContainer>
+            ) : (
+              ''
+            )}
+
             <div className='item'>
-              <label htmlFor='city'>City</label>
+              <label htmlFor='city'>Город</label>
               <input
                 id='city'
                 name='city'
@@ -98,7 +183,55 @@ function NewPostPage() {
               />
             </div>
             <div className='item'>
-              <label htmlFor='bedroom'>Bedroom Number</label>
+              <label htmlFor='address'>Адрес</label>
+              <input
+                id='address'
+                name='address'
+                type='text'
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder='Введите ваш адрес'
+              />
+            </div>
+            <div className='item'>
+              <label htmlFor='type'>Вид</label>
+              <select name='property'>
+                <option value='apartment'>Апартаменты</option>
+                <option value='house'>Дом</option>
+                {/* <option value='condo'>Condo</option>
+                <option value='land'>Land</option> */}
+              </select>
+            </div>
+            <div className='item'>
+              <label htmlFor='latitude'>Широта</label>
+              <input
+                id='latitude'
+                name='latitude'
+                type='text'
+                value={latitude || ''}
+                readOnly
+              />
+            </div>
+            <div className='item'>
+              <label htmlFor='longitude'>Долгота</label>
+              <input
+                id='longitude'
+                name='longitude'
+                type='text'
+                value={longitude || ''}
+                readOnly
+              />
+            </div>
+            <div className='item'>
+              <label htmlFor='utilities'>Ком. услуга</label>
+              <select name='utilities'>
+                <option value='owner'>Оплачивает хозяин</option>
+                <option value='tenant'>Оплачивает гость</option>
+                <option value='shared'>Общий</option>
+              </select>
+            </div>
+            <div className='item'>
+              <label htmlFor='bedroom'>Кол. комнат</label>
               <input
                 min={1}
                 id='bedroom'
@@ -107,7 +240,7 @@ function NewPostPage() {
               />
             </div>
             <div className='item'>
-              <label htmlFor='bathroom'>Bathroom Number</label>
+              <label htmlFor='bathroom'>Кол. санузлов</label>
               <input
                 min={1}
                 id='bathroom'
@@ -116,56 +249,10 @@ function NewPostPage() {
               />
             </div>
             <div className='item'>
-              <label htmlFor='latitude'>Latitude</label>
-              <input
-                id='latitude'
-                name='latitude'
-                type='text'
-              />
-            </div>
-            <div className='item'>
-              <label htmlFor='longitude'>Longitude</label>
-              <input
-                id='longitude'
-                name='longitude'
-                type='text'
-              />
-            </div>
-            <div className='item'>
-              <label htmlFor='type'>Type</label>
-              <select name='type'>
-                <option
-                  value='rent'
-                  defaultChecked
-                >
-                  Rent
-                </option>
-                <option value='buy'>Buy</option>
-              </select>
-            </div>
-            <div className='item'>
-              <label htmlFor='type'>Property</label>
-              <select name='property'>
-                <option value='apartment'>Apartment</option>
-                <option value='house'>House</option>
-                <option value='condo'>Condo</option>
-                <option value='land'>Land</option>
-              </select>
-            </div>
-
-            <div className='item'>
-              <label htmlFor='utilities'>Utilities Policy</label>
-              <select name='utilities'>
-                <option value='owner'>Owner is responsible</option>
-                <option value='tenant'>Tenant is responsible</option>
-                <option value='shared'>Shared</option>
-              </select>
-            </div>
-            <div className='item'>
-              <label htmlFor='pet'>Pet Policy</label>
+              <label htmlFor='pet'>Домашние животные</label>
               <select name='pet'>
-                <option value='allowed'>Allowed</option>
-                <option value='not-allowed'>Not Allowed</option>
+                <option value='allowed'>Разрешается</option>
+                <option value='not-allowed'>Не Разрешается</option>
               </select>
             </div>
             <div className='item'>
@@ -186,7 +273,7 @@ function NewPostPage() {
                 type='number'
               />
             </div>
-            <div className='item'>
+            {/* <div className='item'>
               <label htmlFor='school'>School</label>
               <input
                 min={0}
@@ -212,7 +299,7 @@ function NewPostPage() {
                 name='restaurant'
                 type='number'
               />
-            </div>
+            </div> */}
             <button className='sendButton'>Add</button>
             {error && <span>error</span>}
           </form>
