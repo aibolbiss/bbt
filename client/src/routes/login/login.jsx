@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
-import './login.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import apiRequest from '@/lib/apiRequest';
 import { AuthContext } from '@/context/AuthContext';
+import apiRequest from '@/lib/apiRequest';
+import './login.scss';
 
 function Login() {
   const [error, setError] = useState('');
@@ -29,7 +29,7 @@ function Login() {
 
       updateUser(res.data);
 
-      navigate('/');
+      navigate('/profile');
     } catch (err) {
       setError(err.response.data.message);
     } finally {
@@ -52,6 +52,8 @@ function Login() {
           <input
             name='password'
             type='password'
+            minLength={6}
+            maxLength={20}
             required
             placeholder='Пароль'
           />

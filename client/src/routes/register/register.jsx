@@ -1,14 +1,26 @@
-import './register.scss';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import apiRequest from '@/lib/apiRequest';
+import './register.scss';
 
 function Register() {
+  const [email, setEmail] = useState('');
+  const [isValid, setIsValid] = useState(true);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const handleChange = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+    setIsValid(validateEmail(email));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,11 +33,17 @@ function Register() {
     const password = formData.get('password');
 
     try {
-      const res = await apiRequest.post('/auth/register', {
+      await apiRequest.post('/auth/register', {
         username,
         email,
         password,
       });
+
+      if (isValid) {
+        alert('Аккаунт успешно создан');
+      } else {
+        alert('Пожалуйста, введите корректный адрес электронной почты.');
+      }
 
       navigate('/login');
     } catch (err) {
@@ -34,6 +52,7 @@ function Register() {
       setIsLoading(false);
     }
   };
+
   return (
     <div className='registerPage'>
       <div className='formContainer'>
@@ -42,17 +61,33 @@ function Register() {
           <input
             name='username'
             type='text'
+            minLength={3}
+            maxLength={20}
             placeholder='Имя пользователя'
+            required
           />
           <input
             name='email'
-            type='text'
+            type='email'
             placeholder='Почта'
+            value={email}
+            onChange={handleChange}
+            required
           />
+          {!isValid && (
+            <p style={{ color: 'red' }}>
+              Отсутствуют символы{' '}
+              <span style={{ color: 'black', fontSize: 20 }}>@</span> и{' '}
+              <span style={{ color: 'black', fontSize: 20 }}>.</span>
+            </p>
+          )}
           <input
             name='password'
             type='password'
+            minLength={6}
+            maxLength={20}
             placeholder='Пароль'
+            required
           />
           <button disabled={isLoading}>Регистрация</button>
           {error && <span>{error}</span>}

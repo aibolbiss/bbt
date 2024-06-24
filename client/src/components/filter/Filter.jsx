@@ -12,7 +12,6 @@ function Filter() {
     maxPrice: searchParams.get('maxPrice') || '',
     bedroom: searchParams.get('bedroom') || '',
   });
-  const [selectedOption, setSelectedOption] = useState(query.type);
 
   const handleChange = (e) => {
     setQuery({

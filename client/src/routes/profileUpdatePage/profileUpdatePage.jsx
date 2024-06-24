@@ -37,9 +37,9 @@ function ProfileUpdatePage() {
     <div className='profileUpdatePage'>
       <div className='formContainer'>
         <form onSubmit={handleSubmit}>
-          <h1>Update Profile</h1>
+          <h1>Обновить Профиль</h1>
           <div className='item'>
-            <label htmlFor='username'>Username</label>
+            <label htmlFor='username'>Имя пользователя</label>
             <input
               id='username'
               name='username'
@@ -48,7 +48,7 @@ function ProfileUpdatePage() {
             />
           </div>
           <div className='item'>
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email'>Почта</label>
             <input
               id='email'
               name='email'
@@ -57,27 +57,27 @@ function ProfileUpdatePage() {
             />
           </div>
           <div className='item'>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>Пароль</label>
             <input
               id='password'
               name='password'
               type='password'
             />
           </div>
-          <button>Update</button>
+          <button>Обновить</button>
           {error && <span>error</span>}
         </form>
       </div>
       <div className='sideContainer'>
         <img
-          src={avatar[0] || currentUser.avatar || '/noavatar.jpg'}
+          src={avatar[0] || currentUser.avatar || '/noavatar.png'}
           alt=''
           className='avatar'
         />
         <UploadWidget
           uwConfig={{
-            cloudName: 'lamadev',
-            uploadPreset: 'estate',
+            cloudName: 'Aibol',
+            uploadPreset: 'blablatravel',
             multiple: false,
             maxImageFileSize: 2000000,
             folder: 'avatars',

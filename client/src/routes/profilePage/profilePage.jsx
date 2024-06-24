@@ -27,31 +27,31 @@ function ProfilePage() {
       <div className='details'>
         <div className='wrapper'>
           <div className='title'>
-            <h1>User Information</h1>
+            <h1>Информация о пользователе</h1>
             <Link to='/profile/update'>
-              <button>Update Profile</button>
+              <button>Обновить Профиль</button>
             </Link>
           </div>
           <div className='info'>
             <span>
-              Avatar:
+              Аватарка:
               <img
-                src={currentUser.avatar || 'noavatar.jpg'}
+                src={currentUser.avatar || 'noavatar.png'}
                 alt=''
               />
             </span>
             <span>
-              Username: <b>{currentUser.username}</b>
+              Имя пользователя: <b>{currentUser.username}</b>
             </span>
             <span>
               E-mail: <b>{currentUser.email}</b>
             </span>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout}>Выйти</button>
           </div>
           <div className='title'>
-            <h1>My List</h1>
+            <h1>Мои посты</h1>
             <Link to='/add'>
-              <button>Create New Post</button>
+              <button>Создать новый пост</button>
             </Link>
           </div>
           <Suspense fallback={<p>Loading...</p>}>
@@ -63,7 +63,7 @@ function ProfilePage() {
             </Await>
           </Suspense>
           <div className='title'>
-            <h1>Saved List</h1>
+            <h1>Избранное</h1>
           </div>
           <Suspense fallback={<p>Loading...</p>}>
             <Await
