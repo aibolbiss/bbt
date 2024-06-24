@@ -1,0 +1,30 @@
+.listPage {
+  display: flex;
+  height: 100%;
+}
+.listPage .listContainer {
+  flex: 3;
+  height: 100%;
+}
+.listPage .listContainer .wrapper {
+  height: 100%;
+  padding-right: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  overflow-y: scroll;
+  padding-bottom: 50px;
+}
+.listPage .mapContainer {
+  flex: 2;
+  height: 100%;
+  background-color: #e5d7ff;
+}
+.listPage .mapContainer p {
+  text-align: center;
+}
+@media (max-width: 1024px) {
+  .listPage .mapContainer {
+    display: none;
+  }
+}/*# sourceMappingURL=listPage.css.map */

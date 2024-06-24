@@ -74,7 +74,7 @@
   }
   .chatContainer {
     flex: 2;
-    background-color: #fcf5f3;
+    background-color: #e5d7ff;
     height: 100%;
 
     @include md {
@@ -85,6 +85,7 @@
     .wrapper {
       padding: 0px 20px;
       height: 100%;
+      text-align: center;
     }
   }
 }

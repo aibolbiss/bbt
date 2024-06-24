@@ -72,6 +72,11 @@ export const addPost = async (req, res) => {
   const tokenUserId = req.userId;
 
   try {
+    if (!body.postData || !body.postDetail) {
+      return res
+        .status(400)
+        .json({ message: 'Missing post data or post detail' });
+    }
     const newPost = await prisma.post.create({
       data: {
         ...body.postData,

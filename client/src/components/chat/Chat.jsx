@@ -76,7 +76,7 @@ function Chat({ chats }) {
   return (
     <div className='chat'>
       <div className='messages'>
-        <h1>Messages</h1>
+        <h1>Сообщения</h1>
         {chats?.map((c) => (
           <div
             className='message'
@@ -140,7 +140,7 @@ function Chat({ chats }) {
             className='bottom'
           >
             <textarea name='text'></textarea>
-            <button>Send</button>
+            <button>Отправить</button>
           </form>
         </div>
       )}

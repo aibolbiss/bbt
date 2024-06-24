@@ -76,7 +76,7 @@ function ProfileUpdatePage() {
         />
         <UploadWidget
           uwConfig={{
-            cloudName: 'Aibol',
+            cloudName: 'blablatravel',
             uploadPreset: 'blablatravel',
             multiple: false,
             maxImageFileSize: 2000000,

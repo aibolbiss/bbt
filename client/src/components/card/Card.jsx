@@ -19,7 +19,7 @@ function Card({ item }) {
         </h2>
         <p className='address'>
           <img
-            src='/pin.png'
+            src='/geo.png'
             alt=''
           />
           <span>{item.address}</span>
