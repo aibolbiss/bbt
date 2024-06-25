@@ -1,4 +1,5 @@
 @import '../../responsive.scss';
+@import '../../index.scss';
 
 .homePage {
   display: flex;
@@ -29,7 +30,7 @@
 
       .title {
         font-size: 64px;
-        color: #9f70f6;
+        color: #c628ff;
         height: 150px;
         margin-bottom: 10px;
 
@@ -64,7 +65,7 @@
 
   .imgContainer {
     flex: 2;
-    background-color: #e5d7ff;
+    background-color: $background-color;
     position: relative;
     display: flex;
     align-items: center;

@@ -1,3 +1,19 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  overflow: hidden;
+}
+
 .homePage {
   display: flex;
   height: 100%;
@@ -30,7 +46,7 @@
 }
 .homePage .textContainer .wrapper .title {
   font-size: 64px;
-  color: #9f70f6;
+  color: #c628ff;
   height: 150px;
   margin-bottom: 10px;
 }
@@ -62,7 +78,7 @@
 }
 .homePage .imgContainer {
   flex: 2;
-  background-color: #e5d7ff;
+  background-color: hsl(272, 100%, 86%);
   position: relative;
   display: flex;
   align-items: center;

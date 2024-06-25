@@ -13,7 +13,16 @@ function ListPage() {
       <div className='listContainer'>
         <div className='wrapper'>
           <Filter />
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense
+            fallback={
+              <img
+                style={{
+                  width: 150,
+                }}
+                src='/loading.gif'
+              />
+            }
+          >
             <Await
               resolve={data.postResponse}
               errorElement={<p>Ошибка при загрузке!</p>}
@@ -31,7 +40,16 @@ function ListPage() {
         </div>
       </div>
       <div className='mapContainer'>
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense
+          fallback={
+            <img
+              style={{
+                width: 150,
+              }}
+              src='/loading.gif'
+            />
+          }
+        >
           <Await
             resolve={data.postResponse}
             errorElement={<p>Ошибка при загрузке!</p>}

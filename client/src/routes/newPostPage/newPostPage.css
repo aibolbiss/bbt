@@ -1,3 +1,19 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  overflow: hidden;
+}
+
 .newPostPage {
   height: 100%;
   display: flex;
@@ -37,8 +53,18 @@
   height: 200px;
   font-size: 16px;
 }
+.newPostPage .formContainer .wrapper form .hint {
+  width: 100%;
+  padding: 20px;
+  font-size: 20px;
+  background-color: rgb(255, 249, 190);
+}
+.newPostPage .formContainer .wrapper form .hint-img {
+  width: 25px;
+}
 .newPostPage .formContainer .wrapper form .sendButton {
   width: 30%;
+  padding: 20px;
   border-radius: 5px;
   border: none;
   background-color: teal;
@@ -48,7 +74,7 @@
 }
 .newPostPage .sideContainer {
   flex: 2;
-  background-color: #e5d7ff;
+  background-color: hsl(272, 100%, 86%);
   display: flex;
   flex-direction: column;
   gap: 20px;

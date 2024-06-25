@@ -38,7 +38,7 @@ function SinglePage() {
                 <h1>{post.title}</h1>
                 <div className='address'>
                   <img
-                    src='/pin.png'
+                    src='/geo.png'
                     alt=''
                   />
                   <span>{post.address}</span>
@@ -64,7 +64,28 @@ function SinglePage() {
       </div>
       <div className='features'>
         <div className='wrapper'>
-          <p className='title'>General</p>
+          {/* <p className='title'>General</p> */}
+          <div className='buttons'>
+            <button className='sendMessage'>
+              <img
+                src='/mail.png'
+                alt='Image'
+              />
+              Написать сообщение
+            </button>
+            <button
+              onClick={handleSave}
+              style={{
+                backgroundColor: saved ? '#fece51' : 'white',
+              }}
+            >
+              <img
+                src='/save.png'
+                alt=''
+              />
+              {saved ? 'Сохранено' : 'Сохранить в избранное'}
+            </button>
+          </div>
           <div className='listVertical'>
             <div className='feature'>
               <img
@@ -170,27 +191,6 @@ function SinglePage() {
           <p className='title'>Location</p>
           <div className='mapContainer'>
             <Map items={[post]} />
-          </div>
-          <div className='buttons'>
-            <button>
-              <img
-                src='/chat.png'
-                alt=''
-              />
-              Send a Message
-            </button>
-            <button
-              onClick={handleSave}
-              style={{
-                backgroundColor: saved ? '#fece51' : 'white',
-              }}
-            >
-              <img
-                src='/save.png'
-                alt=''
-              />
-              {saved ? 'Place Saved' : 'Save the Place'}
-            </button>
           </div>
         </div>
       </div>

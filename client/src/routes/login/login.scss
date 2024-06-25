@@ -1,3 +1,5 @@
+@import '../../index.scss';
+
 .login {
   height: 100%;
   display: flex;
@@ -50,7 +52,7 @@
 
   .imgContainer {
     flex: 2;
-    background-color: #e5d7ff;
+    background-color: $background-color;
     position: relative;
     display: flex;
     align-items: center;

@@ -66,8 +66,19 @@ function Filter() {
               defaultValue={query.property}
             >
               <option value=''>Все</option>
-              <option value='turkey'>Турция</option>
-              <option value='dubai'>Дубай</option>
+              <option value=''>Курортный</option>
+              <option value=''>Экзотический</option>
+              <option value=''>Исторический</option>
+              <option value=''>Романтический</option>
+              <option value=''>Рекреационный</option>
+              <option value=''>Лечебно-оздоровительный</option>
+              <option value=''>Познавательный</option>
+              <option value=''>Деловой</option>
+              <option value=''>Спортивный</option>
+              <option value=''>Этнический</option>
+              <option value=''>Религиозный</option>
+              <option value=''>Транзитный</option>
+              <option value=''>Образовательный</option>
             </select>
           </div>
         )}
@@ -87,23 +98,27 @@ function Filter() {
           </div>
         )}
         <div className='item'>
-          <label htmlFor='minPrice'>Мин. Бюджет</label>
+          <label htmlFor='minPrice'>
+            {query.type === 'Жилье' ? 'Цена' : 'Бюджет'}
+          </label>
           <input
             type='number'
             id='minPrice'
             name='minPrice'
-            placeholder='any'
+            placeholder='От'
             onChange={handleChange}
             defaultValue={query.minPrice}
           />
         </div>
         <div className='item'>
-          <label htmlFor='maxPrice'>Макс. Бюджет</label>
+          <label htmlFor='maxPrice'>
+            {query.type === 'Жилье' ? 'Цена' : 'Бюджет'}
+          </label>
           <input
             type='number'
             id='maxPrice'
             name='maxPrice'
-            placeholder='any'
+            placeholder='До'
             onChange={handleChange}
             defaultValue={query.maxPrice}
           />

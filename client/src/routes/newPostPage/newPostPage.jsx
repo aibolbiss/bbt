@@ -15,6 +15,8 @@ function NewPostPage() {
   const [images, setImages] = useState([]);
   const [error, setError] = useState('');
 
+  const [type, setType] = useState('Попутчики');
+
   // Map
   const [position, setPosition] = useState(null);
   const [address, setAddress] = useState('');
@@ -123,19 +125,31 @@ function NewPostPage() {
                 id='title'
                 name='title'
                 type='text'
+                placeholder='Напишите заголовок'
               />
             </div>
             <div className='item'>
-              <label htmlFor='price'>Цена/Бюджет</label>
+              <label htmlFor='price'>
+                {type === 'Попутчики' ? 'Бюджет' : 'Цена'}
+              </label>
               <input
                 id='price'
                 name='price'
                 type='number'
+                placeholder={
+                  type === 'Попутчики'
+                    ? 'Ваш бюджет на отдых'
+                    : 'Цена аренды за сутки'
+                }
               />
             </div>
             <div className='item'>
               <label htmlFor='type'>Тип</label>
-              <select name='type'>
+              <select
+                name='type'
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+              >
                 <option
                   value='Попутчики'
                   defaultChecked
@@ -152,6 +166,18 @@ function NewPostPage() {
                 onChange={setValue}
                 value={value}
               />
+            </div>
+
+            <div className='hint'>
+              <p>
+                Подсказка: Вы можете двигать красную метку{' '}
+                <img
+                  className='hint-img'
+                  src='/geo-red.png'
+                  alt='Image'
+                />
+                чтобы указать ваш адрес
+              </p>
             </div>
 
             {position ? (
@@ -180,28 +206,52 @@ function NewPostPage() {
                 id='city'
                 name='city'
                 type='text'
+                placeholder={
+                  type === 'Попутчики' ? 'Куда вы собираетесь' : 'Расположение'
+                }
               />
             </div>
             <div className='item'>
-              <label htmlFor='address'>Адрес</label>
+              <label htmlFor='address'>
+                {type === 'Попутчики' ? 'Место встречи' : 'Адрес'}
+              </label>
               <input
                 id='address'
                 name='address'
                 type='text'
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                placeholder='Введите ваш адрес'
+                placeholder='Ваш адрес'
               />
             </div>
-            <div className='item'>
-              <label htmlFor='type'>Вид</label>
-              <select name='property'>
-                <option value='apartment'>Апартаменты</option>
-                <option value='house'>Дом</option>
-                {/* <option value='condo'>Condo</option>
-                <option value='land'>Land</option> */}
-              </select>
-            </div>
+            {type === 'Попутчики' ? (
+              <div className='item'>
+                <label htmlFor='type'>Вид туризма</label>
+                <select name='property'>
+                  <option value=''>Курортный</option>
+                  <option value=''>Экзотический</option>
+                  <option value=''>Исторический</option>
+                  <option value=''>Романтический</option>
+                  <option value=''>Рекреационный</option>
+                  <option value=''>Лечебно-оздоровительный</option>
+                  <option value=''>Познавательный</option>
+                  <option value=''>Деловой</option>
+                  <option value=''>Спортивный</option>
+                  <option value=''>Этнический</option>
+                  <option value=''>Религиозный</option>
+                  <option value=''>Транзитный</option>
+                  <option value=''>Образовательный</option>
+                </select>
+              </div>
+            ) : (
+              <div className='item'>
+                <label htmlFor='type'>Вид жилья</label>
+                <select name='property'>
+                  <option value='apartment'>Апартаменты</option>
+                  <option value='house'>Дом</option>
+                </select>
+              </div>
+            )}
             <div className='item'>
               <label htmlFor='latitude'>Широта</label>
               <input
@@ -222,41 +272,66 @@ function NewPostPage() {
                 readOnly
               />
             </div>
-            <div className='item'>
-              <label htmlFor='utilities'>Ком. услуга</label>
-              <select name='utilities'>
-                <option value='owner'>Оплачивает хозяин</option>
-                <option value='tenant'>Оплачивает гость</option>
-                <option value='shared'>Общий</option>
-              </select>
-            </div>
-            <div className='item'>
-              <label htmlFor='bedroom'>Кол. комнат</label>
-              <input
-                min={1}
-                id='bedroom'
-                name='bedroom'
-                type='number'
-              />
-            </div>
-            <div className='item'>
-              <label htmlFor='bathroom'>Кол. санузлов</label>
-              <input
-                min={1}
-                id='bathroom'
-                name='bathroom'
-                type='number'
-              />
-            </div>
-            <div className='item'>
-              <label htmlFor='pet'>Домашние животные</label>
-              <select name='pet'>
-                <option value='allowed'>Разрешается</option>
-                <option value='not-allowed'>Не Разрешается</option>
-              </select>
-            </div>
-            <div className='item'>
-              <label htmlFor='income'>Income Policy</label>
+
+            {type === 'Попутчики' && (
+              <div className='item'>
+                <label htmlFor='type'>Кого вы ищите</label>
+                <select name='property'>
+                  <option value=''>Парня</option>
+                  <option value=''>Девушку</option>
+                  <option value=''>Парней</option>
+                  <option value=''>Девушек</option>
+                  <option value=''>Совместную пару</option>
+                  <option value=''>Делового партнера</option>
+                  <option value=''>Спонсора</option>
+                  <option value=''>Любую компанию</option>
+                  <option value=''>Религиозного человека</option>
+                </select>
+              </div>
+            )}
+
+            {type !== 'Попутчики' && (
+              <>
+                <div className='item'>
+                  <label htmlFor='utilities'>Ком. услуга</label>
+                  <select name='utilities'>
+                    <option value='owner'>Оплачивает хозяин</option>
+                    <option value='tenant'>Оплачивает гость</option>
+                    <option value='shared'>Общий</option>
+                  </select>
+                </div>
+                <div className='item'>
+                  <label htmlFor='bedroom'>Кол. комнат</label>
+                  <input
+                    min={1}
+                    id='bedroom'
+                    name='bedroom'
+                    type='number'
+                    placeholder='Количество'
+                  />
+                </div>
+                <div className='item'>
+                  <label htmlFor='bathroom'>Кол. санузлов</label>
+                  <input
+                    min={1}
+                    id='bathroom'
+                    name='bathroom'
+                    type='number'
+                    placeholder='Количество'
+                  />
+                </div>
+                <div className='item'>
+                  <label htmlFor='pet'>Домашние животные</label>
+                  <select name='pet'>
+                    <option value='allowed'>Разрешается</option>
+                    <option value='not-allowed'>Не Разрешается</option>
+                  </select>
+                </div>
+              </>
+            )}
+
+            {/* <div className='item'>
+              <label htmlFor='income'>Курить</label>
               <input
                 id='income'
                 name='income'
@@ -273,7 +348,7 @@ function NewPostPage() {
                 type='number'
               />
             </div>
-            {/* <div className='item'>
+            <div className='item'>
               <label htmlFor='school'>School</label>
               <input
                 min={0}
@@ -300,7 +375,7 @@ function NewPostPage() {
                 type='number'
               />
             </div> */}
-            <button className='sendButton'>Add</button>
+            <button className='sendButton'>Создать</button>
             {error && <span>error</span>}
           </form>
         </div>

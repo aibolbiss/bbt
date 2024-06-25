@@ -1,4 +1,5 @@
 @import '../../responsive.scss';
+@import '../../index.scss';
 
 .listPage {
   display: flex;
@@ -19,9 +20,10 @@
     }
   }
   .mapContainer {
+    text-align: center;
     flex: 2;
     height: 100%;
-    background-color: #e5d7ff;
+    background-color: $background-color;
 
     p {
       text-align: center;

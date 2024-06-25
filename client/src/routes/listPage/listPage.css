@@ -1,3 +1,19 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  overflow: hidden;
+}
+
 .listPage {
   display: flex;
   height: 100%;
@@ -16,6 +32,7 @@
   padding-bottom: 50px;
 }
 .listPage .mapContainer {
+  text-align: center;
   flex: 2;
   height: 100%;
   background-color: #e5d7ff;
