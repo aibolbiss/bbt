@@ -6,6 +6,7 @@ import apiRequest from '@/lib/apiRequest';
 import UploadWidget from '@/components/uploadWidget/UploadWidget';
 import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import InputMask from 'react-input-mask';
 // import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import markerIconUrl from '../../../public/geo-red.png';
@@ -84,22 +85,27 @@ function NewPostPage() {
       const res = await apiRequest.post('/posts', {
         postData: {
           title: inputs.title,
-          price: parseInt(inputs.price),
-          address: inputs.address,
-          city: inputs.city,
-          bedroom: parseInt(inputs.bedroom),
-          bathroom: parseInt(inputs.bathroom),
           type: inputs.type,
+          price: parseInt(inputs.price),
+          images: images,
+          city: inputs.city,
+          address: inputs.address,
           property: inputs.property,
           latitude: inputs.latitude,
           longitude: inputs.longitude,
-          images: images,
+          gender: inputs.gender,
+          choice: inputs.choice,
+          period: parseInt(inputs.period),
+          bedroom: parseInt(inputs.bedroom),
+          bathroom: parseInt(inputs.bathroom),
         },
         postDetail: {
           desc: value,
           utilities: inputs.utilities,
           pet: inputs.pet,
+          parking: inputs.parking,
           income: inputs.income,
+          telephone: parseInt(inputs.telephone),
           size: parseInt(inputs.size),
           school: parseInt(inputs.school),
           bus: parseInt(inputs.bus),
@@ -129,21 +135,6 @@ function NewPostPage() {
               />
             </div>
             <div className='item'>
-              <label htmlFor='price'>
-                {type === 'Попутчики' ? 'Бюджет' : 'Цена'}
-              </label>
-              <input
-                id='price'
-                name='price'
-                type='number'
-                placeholder={
-                  type === 'Попутчики'
-                    ? 'Ваш бюджет на отдых'
-                    : 'Цена аренды за сутки'
-                }
-              />
-            </div>
-            <div className='item'>
               <label htmlFor='type'>Тип</label>
               <select
                 name='type'
@@ -158,6 +149,21 @@ function NewPostPage() {
                 </option>
                 <option value='Жилье'>Жилье</option>
               </select>
+            </div>
+            <div className='item'>
+              <label htmlFor='price'>
+                {type === 'Попутчики' ? 'Бюджет' : 'Цена'}
+              </label>
+              <input
+                id='price'
+                name='price'
+                type='number'
+                placeholder={
+                  type === 'Попутчики'
+                    ? 'Ваш бюджет на отдых'
+                    : 'Цена аренды за сутки'
+                }
+              />
             </div>
             <div className='item description'>
               <label htmlFor='desc'>Описание</label>
@@ -226,26 +232,29 @@ function NewPostPage() {
             </div>
             {type === 'Попутчики' ? (
               <div className='item'>
-                <label htmlFor='type'>Вид туризма</label>
+                <label htmlFor='property'>Вид туризма</label>
                 <select name='property'>
-                  <option value=''>Курортный</option>
-                  <option value=''>Экзотический</option>
-                  <option value=''>Исторический</option>
-                  <option value=''>Романтический</option>
-                  <option value=''>Рекреационный</option>
-                  <option value=''>Лечебно-оздоровительный</option>
-                  <option value=''>Познавательный</option>
-                  <option value=''>Деловой</option>
-                  <option value=''>Спортивный</option>
-                  <option value=''>Этнический</option>
-                  <option value=''>Религиозный</option>
-                  <option value=''>Транзитный</option>
-                  <option value=''>Образовательный</option>
+                  <option value='Курортный'>Курортный</option>
+                  <option value='Экзотический'>Экзотический</option>
+                  <option value='Экзотический'>Пляжный</option>
+                  <option value='Исторический'>Исторический</option>
+                  <option value='Романтический'>Романтический</option>
+                  <option value='Рекреационный'>Рекреационный</option>
+                  <option value='Лечебно-оздоровительный'>
+                    Лечебно-оздоровительный
+                  </option>
+                  <option value='Познавательный'>Познавательный</option>
+                  <option value='Деловой'>Деловой</option>
+                  <option value='Спортивный'>Спортивный</option>
+                  <option value='Этнический'>Этнический</option>
+                  <option value='Религиозный'>Религиозный</option>
+                  <option value='Транзитный'>Транзитный</option>
+                  <option value='Образовательный'>Образовательный</option>
                 </select>
               </div>
             ) : (
               <div className='item'>
-                <label htmlFor='type'>Вид жилья</label>
+                <label htmlFor='property'>Вид жилья</label>
                 <select name='property'>
                   <option value='apartment'>Апартаменты</option>
                   <option value='house'>Дом</option>
@@ -274,20 +283,41 @@ function NewPostPage() {
             </div>
 
             {type === 'Попутчики' && (
-              <div className='item'>
-                <label htmlFor='type'>Кого вы ищите</label>
-                <select name='property'>
-                  <option value=''>Парня</option>
-                  <option value=''>Девушку</option>
-                  <option value=''>Парней</option>
-                  <option value=''>Девушек</option>
-                  <option value=''>Совместную пару</option>
-                  <option value=''>Делового партнера</option>
-                  <option value=''>Спонсора</option>
-                  <option value=''>Любую компанию</option>
-                  <option value=''>Религиозного человека</option>
-                </select>
-              </div>
+              <>
+                <div className='item'>
+                  <label htmlFor='gender'>Ваш пол</label>
+                  <select name='gender'>
+                    <option value='male'>Муж.</option>
+                    <option value='female'>Жен.</option>
+                    <option value='transgender'>Трансгендер</option>
+                  </select>
+                </div>
+                <div className='item'>
+                  <label htmlFor='choice'>Кого вы ищите</label>
+                  <select name='choice'>
+                    <option value='Парня'>Парня</option>
+                    <option value='Девушку'>Девушку</option>
+                    <option value='Парней'>Парней</option>
+                    <option value='Девушек'>Девушек</option>
+                    <option value='Совместную пару'>Совместную пару</option>
+                    <option value='Делового партнера'>Делового партнера</option>
+                    <option value='Спонсора'>Спонсора</option>
+                    <option value='Любую компанию'>Любую компанию</option>
+                    <option value='religРелигиозного человекаious'>
+                      Религиозного человека
+                    </option>
+                  </select>
+                </div>
+                <div className='item'>
+                  <label htmlFor='period'>Период отдыха</label>
+                  <input
+                    id='period'
+                    name='period'
+                    type='number'
+                    placeholder='На сколько дней'
+                  />
+                </div>
+              </>
             )}
 
             {type !== 'Попутчики' && (
@@ -326,6 +356,28 @@ function NewPostPage() {
                     <option value='allowed'>Разрешается</option>
                     <option value='not-allowed'>Не Разрешается</option>
                   </select>
+                </div>
+                <div className='item'>
+                  <label htmlFor=''>Паркинг</label>
+                  <select name='parking'>
+                    <option value='yes'>Есть</option>
+                    <option value='no'>Нету</option>
+                  </select>
+                </div>
+                <div className='item'>
+                  <label htmlFor=''>Телефон</label>
+                  {/* <input
+                    id=''
+                    name=''
+                    type='number'
+                    placeholder='Ваш номер телефона'
+                  /> */}
+                  <InputMask
+                    id='telephone'
+                    name='telephone'
+                    mask='+7 (999) 999-99-99'
+                    placeholder='+7 (___) ___-__-__'
+                  ></InputMask>
                 </div>
               </>
             )}
@@ -391,8 +443,9 @@ function NewPostPage() {
         <UploadWidget
           uwConfig={{
             multiple: true,
-            cloudName: 'lamadev',
-            uploadPreset: 'estate',
+            cloudName: 'blablatravel',
+            uploadPreset: 'blablatravel',
+            maxImageFileSize: 2000000,
             folder: 'posts',
           }}
           setState={setImages}

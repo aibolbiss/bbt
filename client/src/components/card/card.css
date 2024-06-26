@@ -29,6 +29,16 @@
   width: 16px;
   height: 16px;
 }
+.card .textContainer .main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card .textContainer .main .flight {
+  position: relative;
+  top: 2px;
+  right: 5px;
+}
 .card .textContainer .title {
   font-size: 20px;
   font-weight: 600;
@@ -88,4 +98,4 @@
 }
 .card .textContainer .bottom .icons .icon:hover {
   background-color: lightgray;
-}/*# sourceMappingURL=card.css.map */
+}/*# sourceMappingURL=Card.css.map */

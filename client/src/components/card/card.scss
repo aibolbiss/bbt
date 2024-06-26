@@ -30,6 +30,17 @@
       width: 16px;
       height: 16px;
     }
+    .main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .flight {
+        position: relative;
+        top: 2px;
+        right: 5px;
+      }
+    }
 
     .title {
       font-size: 20px;

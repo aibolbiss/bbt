@@ -49,6 +49,8 @@ export const getPost = async (req, res) => {
 
     const token = req.cookies?.token;
 
+    // Aibol
+
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, payload) => {
         if (!err && payload) {
@@ -92,7 +94,9 @@ export const addPost = async (req, res) => {
         ...body.postData,
         userId: tokenUserId,
         postDetail: {
-          create: body.postDetail,
+          create: {
+            ...body.postDetail,
+          },
         },
       },
     });

@@ -140,14 +140,28 @@ function SinglePage() {
                 src='/bed.png'
                 alt=''
               />
-              <span>{post.bedroom} beds</span>
+              <span>
+                {post.bedroom}{' '}
+                {post.bedroom > 4
+                  ? 'комнат'
+                  : post.bedroom === 1
+                  ? 'комната'
+                  : 'комнаты'}
+              </span>
             </div>
             <div className='size'>
               <img
                 src='/bath.png'
                 alt=''
               />
-              <span>{post.bathroom} bathroom</span>
+              <span>
+                {post.bathroom}{' '}
+                {post.bathroom > 4
+                  ? 'санузлов'
+                  : post.bathroom === 1
+                  ? 'санузел'
+                  : 'санузла'}
+              </span>
             </div>
           </div>
           <p className='title'>Nearby Places</p>
