@@ -16,6 +16,7 @@ function NewPostPage() {
   const [images, setImages] = useState([]);
   const [error, setError] = useState('');
 
+  const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState('Попутчики');
 
   // Map
@@ -80,6 +81,8 @@ function NewPostPage() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const inputs = Object.fromEntries(formData);
+
+    setIsLoading(true);
 
     try {
       const res = await apiRequest.post('/posts', {
@@ -152,7 +155,7 @@ function NewPostPage() {
             </div>
             <div className='item'>
               <label htmlFor='price'>
-                {type === 'Попутчики' ? 'Бюджет' : 'Цена'}
+                {type === 'Попутчики' ? 'Бюджет в USD' : 'Цена'}
               </label>
               <input
                 id='price'
@@ -427,7 +430,9 @@ function NewPostPage() {
                 type='number'
               />
             </div> */}
-            <button className='sendButton'>Создать</button>
+            <button className='sendButton'>
+              {!isLoading ? 'Создать' : 'Ожидайте'}
+            </button>
             {error && <span>error</span>}
           </form>
         </div>

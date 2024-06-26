@@ -66,19 +66,22 @@ function Filter() {
               defaultValue={query.property}
             >
               <option value=''>Все</option>
-              <option value=''>Курортный</option>
-              <option value=''>Экзотический</option>
-              <option value=''>Исторический</option>
-              <option value=''>Романтический</option>
-              <option value=''>Рекреационный</option>
-              <option value=''>Лечебно-оздоровительный</option>
-              <option value=''>Познавательный</option>
-              <option value=''>Деловой</option>
-              <option value=''>Спортивный</option>
-              <option value=''>Этнический</option>
-              <option value=''>Религиозный</option>
-              <option value=''>Транзитный</option>
-              <option value=''>Образовательный</option>
+              <option value='Курортный'>Курортный</option>
+              <option value='Экзотический'>Экзотический</option>
+              <option value='Экзотический'>Пляжный</option>
+              <option value='Исторический'>Исторический</option>
+              <option value='Романтический'>Романтический</option>
+              <option value='Рекреационный'>Рекреационный</option>
+              <option value='Лечебно-оздоровительный'>
+                Лечебно-оздоровительный
+              </option>
+              <option value='Познавательный'>Познавательный</option>
+              <option value='Деловой'>Деловой</option>
+              <option value='Спортивный'>Спортивный</option>
+              <option value='Этнический'>Этнический</option>
+              <option value='Религиозный'>Религиозный</option>
+              <option value='Транзитный'>Транзитный</option>
+              <option value='Образовательный'>Образовательный</option>
             </select>
           </div>
         )}

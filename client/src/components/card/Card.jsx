@@ -36,7 +36,7 @@ function Card({ item }) {
           <span>{item.address}</span>
         </p> */}
 
-        <p className='price'>Бюджет: {item.price} ₸</p>
+        <p className='price'>Бюджет: {item.price} $</p>
         <p>Вид: {item.property}</p>
         <p>
           Период отдыха: {item.period}{' '}
