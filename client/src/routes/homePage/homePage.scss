@@ -30,7 +30,7 @@
 
       .title {
         font-size: 64px;
-        color: #c628ff;
+        color: $base-title-color;
         height: 150px;
         margin-bottom: 10px;
 
@@ -75,13 +75,13 @@
     }
 
     img {
-      width: 100%;
+      width: 85%;
       position: absolute;
-      right: 40px;
+      right: 30px;
 
-      @include lg {
-        width: 105%;
-      }
+      //   @include lg {
+      //     width: 105%;
+      //   }
     }
   }
 }

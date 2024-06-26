@@ -60,14 +60,14 @@ body {
 }
 .login .imgContainer {
   flex: 2;
-  background-color: #e5d7ff;
+  background-color: hwb(68 68% 0%);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .login .imgContainer img {
-  width: 100%;
+  width: 85%;
   position: absolute;
-  right: 40px;
+  right: 30px;
 }/*# sourceMappingURL=login.css.map */
