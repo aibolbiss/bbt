@@ -30,6 +30,7 @@ function Map({ items }) {
       <img
         style={{
           width: 150,
+          height: 150,
         }}
         src='/loading.gif'
       />

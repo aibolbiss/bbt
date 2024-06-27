@@ -40,7 +40,7 @@
   justify-content: space-between;
 }
 .chat .chatBox .top {
-  background-color: rgba(247, 193, 75, 0.5215686275);
+  background-color: #fece51;
   padding: 20px;
   font-weight: bold;
   display: flex;
@@ -84,7 +84,7 @@
   border-radius: 5px;
 }
 .chat .chatBox .bottom {
-  border-top: 2px solid rgba(247, 193, 75, 0.5215686275);
+  border-top: 2px solid #fece51;
   height: 60px;
   display: flex;
   align-items: center;
@@ -98,7 +98,7 @@
 }
 .chat .chatBox .bottom button {
   flex: 1;
-  background-color: rgba(247, 193, 75, 0.5215686275);
+  background-color: #fece51;
   height: 100%;
   border: none;
   cursor: pointer;

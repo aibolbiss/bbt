@@ -84,13 +84,15 @@ function NewPostPage() {
 
     setIsLoading(true);
 
+    const defaultImage = '/default.png';
+
     try {
       const res = await apiRequest.post('/posts', {
         postData: {
           title: inputs.title,
           type: inputs.type,
           price: parseInt(inputs.price),
-          images: images,
+          images: images.length ? images : [defaultImage],
           city: inputs.city,
           address: inputs.address,
           property: inputs.property,
@@ -131,10 +133,13 @@ function NewPostPage() {
             <div className='item'>
               <label htmlFor='title'>Заголовок</label>
               <input
+                minLength={5}
+                maxLength={20}
                 id='title'
                 name='title'
                 type='text'
                 placeholder='Напишите заголовок'
+                required
               />
             </div>
             <div className='item'>
@@ -155,9 +160,10 @@ function NewPostPage() {
             </div>
             <div className='item'>
               <label htmlFor='price'>
-                {type === 'Попутчики' ? 'Бюджет в USD' : 'Цена в USD'}
+                {type === 'Попутчики' ? 'Бюджет в USD' : 'Цена'}
               </label>
               <input
+                min={1}
                 id='price'
                 name='price'
                 type='number'
@@ -166,6 +172,7 @@ function NewPostPage() {
                     ? 'Ваш бюджет на отдых'
                     : 'Цена аренды за сутки'
                 }
+                required
               />
             </div>
             <div className='item description'>
@@ -212,12 +219,15 @@ function NewPostPage() {
             <div className='item'>
               <label htmlFor='city'>Город</label>
               <input
+                minLength={2}
+                maxLength={30}
                 id='city'
                 name='city'
                 type='text'
                 placeholder={
                   type === 'Попутчики' ? 'Куда вы собираетесь' : 'Расположение'
                 }
+                required
               />
             </div>
             <div className='item'>
@@ -314,10 +324,12 @@ function NewPostPage() {
                 <div className='item'>
                   <label htmlFor='period'>Период отдыха</label>
                   <input
+                    min={1}
                     id='period'
                     name='period'
                     type='number'
                     placeholder='На сколько дней'
+                    required
                   />
                 </div>
               </>
@@ -341,6 +353,7 @@ function NewPostPage() {
                     name='bedroom'
                     type='number'
                     placeholder='Количество'
+                    required
                   />
                 </div>
                 <div className='item'>
@@ -351,6 +364,7 @@ function NewPostPage() {
                     name='bathroom'
                     type='number'
                     placeholder='Количество'
+                    required
                   />
                 </div>
                 <div className='item'>
@@ -361,14 +375,14 @@ function NewPostPage() {
                   </select>
                 </div>
                 <div className='item'>
-                  <label htmlFor=''>Паркинг</label>
+                  <label htmlFor='parking'>Паркинг</label>
                   <select name='parking'>
                     <option value='Есть'>Есть</option>
                     <option value='Нету'>Нету</option>
                   </select>
                 </div>
                 <div className='item'>
-                  <label htmlFor=''>Телефон</label>
+                  <label htmlFor='telephone'>Телефон</label>
                   {/* <input
                     id=''
                     name=''
@@ -376,10 +390,12 @@ function NewPostPage() {
                     placeholder='Ваш номер телефона'
                   /> */}
                   <InputMask
+                    minLength={10}
                     id='telephone'
                     name='telephone'
                     mask='+7 (999) 999-99-99'
                     placeholder='+7 (___) ___-__-__'
+                    required
                   ></InputMask>
                 </div>
               </>

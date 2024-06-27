@@ -30,7 +30,7 @@ function Card({ item }) {
         </div>
 
         <p className='price'>
-          {item.type === 'Попутчики' ? 'Бюджет' : 'Цена'}: {item.price} ${' '}
+          {item.type === 'Попутчики' ? 'Бюджет' : 'Аренда'}: {item.price} ₸{' '}
           {item.type === 'Жилье' ? 'в день' : ''}
         </p>
         <p>Вид: {item.property}</p>

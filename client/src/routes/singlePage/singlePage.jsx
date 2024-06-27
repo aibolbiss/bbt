@@ -45,8 +45,8 @@ function SinglePage() {
                 </div> */}
                 <p>Вид: {post.property}</p>
                 <div className='price'>
-                  {post.type === 'Попутчики' ? 'Бюджет' : 'Цена'}: {post.price}{' '}
-                  $ {post.type === 'Жилье' ? 'в день' : ''}
+                  {post.type === 'Попутчики' ? 'Бюджет' : 'Аренда'}:{' '}
+                  {post.price} ₸ {post.type === 'Жилье' ? 'в день' : ''}
                 </div>
               </div>
               <div className='user'>
@@ -68,7 +68,6 @@ function SinglePage() {
       </div>
       <div className='features'>
         <div className='wrapper'>
-          {/* <p className='title'>General</p> */}
           <div className='buttons'>
             <button className='sendMessage'>
               <img
@@ -156,7 +155,7 @@ function SinglePage() {
 
           {post.type === 'Жилье' && (
             <>
-              <p className='title'>Параметры</p>
+              {/* <p className='title'>Параметры</p> */}
               <div className='sizes'>
                 <div className='size'>
                   <img

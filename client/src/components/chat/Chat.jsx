@@ -77,26 +77,30 @@ function Chat({ chats }) {
     <div className='chat'>
       <div className='messages'>
         <h1>Сообщения</h1>
-        {chats?.map((c) => (
-          <div
-            className='message'
-            key={c.id}
-            style={{
-              backgroundColor:
-                c.seenBy.includes(currentUser.id) || chat?.id === c.id
-                  ? 'white'
-                  : '#fecd514e',
-            }}
-            onClick={() => handleOpenChat(c.id, c.receiver)}
-          >
-            <img
-              src={c.receiver.avatar || '/noavatar.png'}
-              alt=''
-            />
-            <span>{c.receiver.username}</span>
-            <p>{c.lastMessage}</p>
-          </div>
-        ))}
+        {chats.length === 0 ? (
+          <p>У вас пока нету сообщений</p>
+        ) : (
+          chats?.map((c) => (
+            <div
+              className='message'
+              key={c.id}
+              style={{
+                backgroundColor:
+                  c.seenBy.includes(currentUser.id) || chat?.id === c.id
+                    ? 'white'
+                    : '#fecd514e',
+              }}
+              onClick={() => handleOpenChat(c.id, c.receiver)}
+            >
+              <img
+                src={c.receiver.avatar || '/noavatar.png'}
+                alt=''
+              />
+              <span>{c.receiver.username}</span>
+              <p>{c.lastMessage}</p>
+            </div>
+          ))
+        )}
       </div>
       {chat && (
         <div className='chatBox'>
@@ -139,7 +143,10 @@ function Chat({ chats }) {
             onSubmit={handleSubmit}
             className='bottom'
           >
-            <textarea name='text'></textarea>
+            <textarea
+              name='text'
+              placeholder='Напишите что нибудь'
+            ></textarea>
             <button>Отправить</button>
           </form>
         </div>

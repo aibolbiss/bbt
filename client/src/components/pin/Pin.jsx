@@ -13,8 +13,14 @@ function Pin({ item }) {
           />
           <div className='textContainer'>
             <Link to={`/${item.id}`}>{item.title}</Link>
-            <span>{item.bedroom} bedroom</span>
-            <b>$ {item.price}</b>
+            <span>Вид: {item.property}</span>
+
+            <span>
+              {item.type === 'Попутчики' ? 'Бюджет: ' : ''}
+              <b>
+                {item.price} ₸ {item.type === 'Жилье' ? 'в день' : ''}
+              </b>
+            </span>
           </div>
         </div>
       </Popup>
