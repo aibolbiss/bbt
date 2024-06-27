@@ -95,8 +95,8 @@ function Filter() {
               defaultValue={query.property}
             >
               <option value=''>Все</option>
-              <option value='turkey'>Апартаменты</option>
-              <option value='dubai'>Дом</option>
+              <option value='Апартамент'>Апартамент</option>
+              <option value='Дом'>Дом</option>
             </select>
           </div>
         )}

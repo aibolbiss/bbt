@@ -98,6 +98,8 @@ function NewPostPage() {
           longitude: inputs.longitude,
           gender: inputs.gender,
           choice: inputs.choice,
+          parking: inputs.parking,
+          telephone: inputs.telephone,
           period: parseInt(inputs.period),
           bedroom: parseInt(inputs.bedroom),
           bathroom: parseInt(inputs.bathroom),
@@ -106,9 +108,7 @@ function NewPostPage() {
           desc: value,
           utilities: inputs.utilities,
           pet: inputs.pet,
-          parking: inputs.parking,
           income: inputs.income,
-          telephone: parseInt(inputs.telephone),
           size: parseInt(inputs.size),
           school: parseInt(inputs.school),
           bus: parseInt(inputs.bus),
@@ -155,7 +155,7 @@ function NewPostPage() {
             </div>
             <div className='item'>
               <label htmlFor='price'>
-                {type === 'Попутчики' ? 'Бюджет в USD' : 'Цена'}
+                {type === 'Попутчики' ? 'Бюджет в USD' : 'Цена в USD'}
               </label>
               <input
                 id='price'
@@ -259,8 +259,8 @@ function NewPostPage() {
               <div className='item'>
                 <label htmlFor='property'>Вид жилья</label>
                 <select name='property'>
-                  <option value='apartment'>Апартаменты</option>
-                  <option value='house'>Дом</option>
+                  <option value='Апартамент'>Апартамент</option>
+                  <option value='Дом'>Дом</option>
                 </select>
               </div>
             )}
@@ -290,9 +290,9 @@ function NewPostPage() {
                 <div className='item'>
                   <label htmlFor='gender'>Ваш пол</label>
                   <select name='gender'>
-                    <option value='male'>Муж.</option>
-                    <option value='female'>Жен.</option>
-                    <option value='transgender'>Трансгендер</option>
+                    <option value='man'>Муж.</option>
+                    <option value='woman'>Жен.</option>
+                    <option value='trans'>Трансгендер</option>
                   </select>
                 </div>
                 <div className='item'>
@@ -306,7 +306,7 @@ function NewPostPage() {
                     <option value='Делового партнера'>Делового партнера</option>
                     <option value='Спонсора'>Спонсора</option>
                     <option value='Любую компанию'>Любую компанию</option>
-                    <option value='religРелигиозного человекаious'>
+                    <option value='Религиозного человека'>
                       Религиозного человека
                     </option>
                   </select>
@@ -356,15 +356,15 @@ function NewPostPage() {
                 <div className='item'>
                   <label htmlFor='pet'>Домашние животные</label>
                   <select name='pet'>
-                    <option value='allowed'>Разрешается</option>
-                    <option value='not-allowed'>Не Разрешается</option>
+                    <option value='Разрешается'>Разрешается</option>
+                    <option value='Не Разрешается'>Не Разрешается</option>
                   </select>
                 </div>
                 <div className='item'>
                   <label htmlFor=''>Паркинг</label>
                   <select name='parking'>
-                    <option value='yes'>Есть</option>
-                    <option value='no'>Нету</option>
+                    <option value='Есть'>Есть</option>
+                    <option value='Нету'>Нету</option>
                   </select>
                 </div>
                 <div className='item'>

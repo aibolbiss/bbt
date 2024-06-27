@@ -21,27 +21,33 @@ function Card({ item }) {
           <p>
             {' '}
             <img
-              className='flight'
-              src='/flight.png'
+              className='city-icon'
+              src={item.type === 'Попутчики' ? '/flight.png' : '/home.png'}
               alt='Image'
             />
             {item.city}
           </p>
         </div>
-        {/* <p className='address'>
-          <img
-            src='/geo.png'
-            alt=''
-          />
-          <span>{item.address}</span>
-        </p> */}
 
-        <p className='price'>Бюджет: {item.price} $</p>
-        <p>Вид: {item.property}</p>
-        <p>
-          Период отдыха: {item.period}{' '}
-          {item.period > 4 ? 'дней' : item.period === 1 ? 'день' : 'дня'}
+        <p className='price'>
+          {item.type === 'Попутчики' ? 'Бюджет' : 'Цена'}: {item.price} ${' '}
+          {item.type === 'Жилье' ? 'в день' : ''}
         </p>
+        <p>Вид: {item.property}</p>
+        {item.type === 'Попутчики' ? (
+          <p>
+            Период отдыха: {item.period}{' '}
+            {item.period > 4 ? 'дней' : item.period === 1 ? 'день' : 'дня'}
+          </p>
+        ) : (
+          <p className='address'>
+            <img
+              src='/geo.png'
+              alt=''
+            />
+            <span>{item.address}</span>
+          </p>
+        )}
         <div className='bottom'>
           <div className='features'>
             {item.type === 'Попутчики' ? (
@@ -50,13 +56,7 @@ function Card({ item }) {
                   Я
                   <img
                     style={{ width: 25, height: 25 }}
-                    src={
-                      item.gender === 'male'
-                        ? '/man.png'
-                        : item.gender === 'female'
-                        ? '/woman.png'
-                        : '/trans.png'
-                    }
+                    src={`/${item.gender}.png`}
                     alt='Image'
                   />
                 </div>
@@ -96,16 +96,22 @@ function Card({ item }) {
             )}
           </div>
           <div className='icons'>
-            <div className='icon'>
+            <div
+              className='icon'
+              title='В Избранное'
+            >
               <img
                 src='/save.png'
-                alt=''
+                alt='Icon'
               />
             </div>
-            <div className='icon'>
+            <div
+              className='icon'
+              title='Написать'
+            >
               <img
-                src='/chat.png'
-                alt=''
+                src='/mail.png'
+                alt='Icon'
               />
             </div>
           </div>

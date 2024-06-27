@@ -34,7 +34,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.card .textContainer .main .flight {
+.card .textContainer .main .city-icon {
   position: relative;
   top: 2px;
   right: 5px;
@@ -50,7 +50,7 @@
   scale: 1.01;
 }
 .card .textContainer .address {
-  font-size: 14px;
+  font-size: 12px;
   display: flex;
   align-items: center;
   gap: 5px;

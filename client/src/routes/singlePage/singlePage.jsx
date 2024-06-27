@@ -36,14 +36,18 @@ function SinglePage() {
             <div className='top'>
               <div className='post'>
                 <h1>{post.title}</h1>
-                <div className='address'>
+                {/* <div className='address'>
                   <img
                     src='/geo.png'
                     alt=''
                   />
                   <span>{post.address}</span>
+                </div> */}
+                <p>Вид: {post.property}</p>
+                <div className='price'>
+                  {post.type === 'Попутчики' ? 'Бюджет' : 'Цена'}: {post.price}{' '}
+                  $ {post.type === 'Жилье' ? 'в день' : ''}
                 </div>
-                <div className='price'>₸ {post.price}</div>
               </div>
               <div className='user'>
                 <img
@@ -89,82 +93,111 @@ function SinglePage() {
           <div className='listVertical'>
             <div className='feature'>
               <img
-                src='/utility.png'
-                alt=''
+                src={
+                  post.type === 'Попутчики'
+                    ? `/${post.gender}.png`
+                    : '/city.png'
+                }
+                alt='Icon'
               />
               <div className='featureText'>
-                <span>Utilities</span>
-                {post.postDetail.utilities === 'owner' ? (
-                  <p>Owner is responsible</p>
+                <span>{post.type === 'Попутчики' ? 'Я' : 'Город'}</span>
+                {post.type === 'Попутчики' ? (
+                  <>
+                    {post.gender === 'man' ? (
+                      <p>Парень/Мужчина</p>
+                    ) : post.gender === 'woman' ? (
+                      <p>Девушка/Женщина</p>
+                    ) : (
+                      <p>Трансгендер</p>
+                    )}
+                  </>
                 ) : (
-                  <p>Tenant is responsible</p>
+                  <p>{post.city}</p>
                 )}
               </div>
             </div>
             <div className='feature'>
               <img
-                src='/pet.png'
-                alt=''
+                src={post.type === 'Попутчики' ? '/luggage.png' : '/car.png'}
+                alt='Icon'
               />
               <div className='featureText'>
-                <span>Pet Policy</span>
-                {post.postDetail.pet === 'allowed' ? (
-                  <p>Pets Allowed</p>
+                <span>{post.type === 'Попутчики' ? 'Ищу' : 'Паркинг'}</span>
+                {post.type === 'Попутчики' ? (
+                  <p>{post.choice}</p>
                 ) : (
-                  <p>Pets not Allowed</p>
+                  <p>{post.parking}</p>
                 )}
               </div>
             </div>
             <div className='feature'>
               <img
-                src='/fee.png'
+                src={post.type === 'Попутчики' ? '/time.png' : '/telephone.png'}
                 alt=''
               />
               <div className='featureText'>
-                <span>Income Policy</span>
-                <p>{post.postDetail.income}</p>
+                <span>{post.type === 'Попутчики' ? 'Период' : 'Телефон'}</span>
+                {post.type === 'Попутчики' ? (
+                  <p>
+                    {post.period}{' '}
+                    {post.period > 4
+                      ? 'дней'
+                      : post.period === 1
+                      ? 'день'
+                      : 'дня'}
+                  </p>
+                ) : (
+                  <p>{post.telephone}</p>
+                )}
               </div>
             </div>
           </div>
-          <p className='title'>Sizes</p>
-          <div className='sizes'>
-            <div className='size'>
-              <img
-                src='/size.png'
-                alt=''
-              />
-              <span>{post.postDetail.size} sqft</span>
-            </div>
-            <div className='size'>
-              <img
-                src='/bed.png'
-                alt=''
-              />
-              <span>
-                {post.bedroom}{' '}
-                {post.bedroom > 4
-                  ? 'комнат'
-                  : post.bedroom === 1
-                  ? 'комната'
-                  : 'комнаты'}
-              </span>
-            </div>
-            <div className='size'>
-              <img
-                src='/bath.png'
-                alt=''
-              />
-              <span>
-                {post.bathroom}{' '}
-                {post.bathroom > 4
-                  ? 'санузлов'
-                  : post.bathroom === 1
-                  ? 'санузел'
-                  : 'санузла'}
-              </span>
-            </div>
-          </div>
-          <p className='title'>Nearby Places</p>
+
+          {post.type === 'Жилье' && (
+            <>
+              <p className='title'>Параметры</p>
+              <div className='sizes'>
+                <div className='size'>
+                  <img
+                    src='/bed.png'
+                    alt=''
+                  />
+                  <span>
+                    {post.bedroom}{' '}
+                    {post.bedroom > 4
+                      ? 'комнат'
+                      : post.bedroom === 1
+                      ? 'комната'
+                      : 'комнаты'}
+                  </span>
+                </div>
+                <div className='size'>
+                  <img
+                    src='/bath.png'
+                    alt=''
+                  />
+                  <span>
+                    {post.bathroom}{' '}
+                    {post.bathroom > 4
+                      ? 'санузлов'
+                      : post.bathroom === 1
+                      ? 'санузел'
+                      : 'санузла'}
+                  </span>
+                </div>
+                <div className='size'>
+                  <img
+                    src='/pet.png'
+                    alt=''
+                  />
+                  <span>{post.postDetail.pet}</span>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* <p className='title'>Nearby Places</p>
           <div className='listHorizontal'>
             <div className='feature'>
               <img
@@ -201,8 +234,13 @@ function SinglePage() {
                 <p>{post.postDetail.restaurant}m away</p>
               </div>
             </div>
-          </div>
-          <p className='title'>Location</p>
+          </div> */}
+
+          <p className='title'>
+            {post.type === 'Попутчики'
+              ? 'Адрес где можем встретиться'
+              : 'Местоположение'}
+          </p>
           <div className='mapContainer'>
             <Map items={[post]} />
           </div>

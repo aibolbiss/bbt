@@ -24,9 +24,11 @@ model Post {
   property   String
   latitude   String
   longitude  String
-  gender     String
-  choice     String
-  period     Int
+  gender     String?
+  choice     String?
+  parking    String?
+  telephone  String?
+  period     Int?
   bedroom    Int?
   bathroom   Int?
   createdAt  DateTime    @default(now())
@@ -53,8 +55,6 @@ model PostDetail {
   desc       String
   utilities  String?
   pet        String?
-  parking    String?
-  telephone  String?
   income     String?
   size       Int?
   school     Int?
