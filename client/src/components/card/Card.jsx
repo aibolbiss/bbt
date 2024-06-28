@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
 import './card.scss';
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 
 function Card({ item }) {
+  const { currentUser } = useContext(AuthContext);
+  const isOwner = currentUser?.id === item.userId;
+
   return (
     <div className='card'>
       <Link
@@ -96,24 +101,29 @@ function Card({ item }) {
             )}
           </div>
           <div className='icons'>
-            <div
-              className='icon'
-              title='В Избранное'
-            >
-              <img
-                src='/save.png'
-                alt='Icon'
-              />
-            </div>
-            <div
-              className='icon'
-              title='Написать'
-            >
-              <img
-                src='/mail.png'
-                alt='Icon'
-              />
-            </div>
+            {!isOwner && (
+              <>
+                {' '}
+                <div
+                  className='icon'
+                  title='В Избранное'
+                >
+                  <img
+                    src='/save.png'
+                    alt='Icon'
+                  />
+                </div>
+                <div
+                  className='icon'
+                  title='Написать'
+                >
+                  <img
+                    src='/mail.png'
+                    alt='Icon'
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

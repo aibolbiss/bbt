@@ -37,7 +37,7 @@ function ProfilePage() {
               Аватарка:
               <img
                 src={currentUser.avatar || 'noavatar.png'}
-                alt=''
+                alt='Image'
               />
             </span>
             <span>

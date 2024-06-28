@@ -71,7 +71,7 @@ function ProfileUpdatePage() {
       <div className='sideContainer'>
         <img
           src={avatar[0] || currentUser.avatar || '/noavatar.png'}
-          alt=''
+          alt='Image'
           className='avatar'
         />
         <UploadWidget

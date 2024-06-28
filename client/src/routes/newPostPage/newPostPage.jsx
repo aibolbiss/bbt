@@ -458,7 +458,7 @@ function NewPostPage() {
           <img
             src={image}
             key={index}
-            alt=''
+            alt='Image'
           />
         ))}
         <UploadWidget

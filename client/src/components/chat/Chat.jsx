@@ -7,14 +7,13 @@ import { SocketContext } from '../../context/SocketContext';
 import { useNotificationStore } from '../../lib/notificationStore';
 import { useLocation } from 'react-router-dom';
 
-// Aibol
-
 function Chat({ chats }) {
   const [chat, setChat] = useState(null);
   const { currentUser } = useContext(AuthContext);
   const { socket } = useContext(SocketContext);
   const location = useLocation();
   const messageEndRef = useRef();
+  const formRef = useRef();
 
   const decrease = useNotificationStore((state) => state.decrease);
 
@@ -36,6 +35,7 @@ function Chat({ chats }) {
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chat]);
+
   useEffect(() => {
     if (location.state?.chatId && location.state?.receiver) {
       handleOpenChat(location.state.chatId, location.state.receiver);
@@ -83,6 +83,13 @@ function Chat({ chats }) {
       socket.off('getMessage');
     };
   }, [socket, chat]);
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      formRef.current.requestSubmit(); // Программно отправляем форму
+    }
+  };
 
   return (
     <div className='chat'>
@@ -147,12 +154,14 @@ function Chat({ chats }) {
             <div ref={messageEndRef}></div>
           </div>
           <form
+            ref={formRef} // Привязываем форму к рефу
             onSubmit={handleSubmit}
             className='bottom'
           >
             <textarea
               name='text'
               placeholder='Напишите что-нибудь'
+              onKeyPress={handleKeyPress} // Обработчик нажатия клавиши
             ></textarea>
             <button>Отправить</button>
           </form>

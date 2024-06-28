@@ -30,12 +30,29 @@ function SinglePage() {
   const sendMessage = async () => {
     if (!currentUser) {
       navigate('/login');
+      return;
     }
     try {
-      const res = await apiRequest.post('/chats', { receiverId: post.userId });
-      navigate('/profile', {
-        state: { chatId: res.data.id, receiver: post.user },
-      });
+      // Получаем все чаты текущего пользователя
+      const res = await apiRequest.get('/chats');
+      const existingChat = res.data.find(
+        (chat) => chat.receiver.id === post.userId
+      );
+
+      if (existingChat) {
+        // Если существует, перенаправляем на существующий чат
+        navigate('/profile', {
+          state: { chatId: existingChat.id, receiver: post.user },
+        });
+      } else {
+        // Если не существует, создаем новый чат
+        const newChat = await apiRequest.post('/chats', {
+          receiverId: post.userId,
+        });
+        navigate('/profile', {
+          state: { chatId: newChat.data.id, receiver: post.user },
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +70,7 @@ function SinglePage() {
                 {/* <div className='address'>
                   <img
                     src='/geo.png'
-                    alt=''
+                    alt='Image'
                   />
                   <span>{post.address}</span>
                 </div> */}
@@ -65,8 +82,8 @@ function SinglePage() {
               </div>
               <div className='user'>
                 <img
-                  src={post.user.avatar}
-                  alt=''
+                  src={post.user.avatar || '/noavatar.png'}
+                  alt='Image'
                 />
                 <span>{post.user.username}</span>
               </div>
@@ -82,7 +99,12 @@ function SinglePage() {
       </div>
       <div className='features'>
         <div className='wrapper'>
-          <div className='buttons'>
+          <div
+            className='buttons'
+            style={{
+              display: currentUser?.id === post.userId ? 'none' : '',
+            }}
+          >
             <button
               className='sendMessage'
               onClick={sendMessage}
@@ -101,7 +123,7 @@ function SinglePage() {
             >
               <img
                 src='/save.png'
-                alt=''
+                alt='Image'
               />
               {saved ? 'Сохранено' : 'Сохранить в избранное'}
             </button>
@@ -114,7 +136,7 @@ function SinglePage() {
                     ? `/${post.gender}.png`
                     : '/city.png'
                 }
-                alt='Icon'
+                alt='Image'
               />
               <div className='featureText'>
                 <span>{post.type === 'Попутчики' ? 'Я' : 'Город'}</span>
@@ -136,7 +158,7 @@ function SinglePage() {
             <div className='feature'>
               <img
                 src={post.type === 'Попутчики' ? '/luggage.png' : '/car.png'}
-                alt='Icon'
+                alt='Image'
               />
               <div className='featureText'>
                 <span>{post.type === 'Попутчики' ? 'Ищу' : 'Паркинг'}</span>
@@ -150,7 +172,7 @@ function SinglePage() {
             <div className='feature'>
               <img
                 src={post.type === 'Попутчики' ? '/time.png' : '/telephone.png'}
-                alt=''
+                alt='Image'
               />
               <div className='featureText'>
                 <span>{post.type === 'Попутчики' ? 'Период' : 'Телефон'}</span>
@@ -177,7 +199,7 @@ function SinglePage() {
                 <div className='size'>
                   <img
                     src='/bed.png'
-                    alt=''
+                    alt='Image'
                   />
                   <span>
                     {post.bedroom}{' '}
@@ -191,7 +213,7 @@ function SinglePage() {
                 <div className='size'>
                   <img
                     src='/bath.png'
-                    alt=''
+                    alt='Image'
                   />
                   <span>
                     {post.bathroom}{' '}
@@ -205,52 +227,13 @@ function SinglePage() {
                 <div className='size'>
                   <img
                     src='/pet.png'
-                    alt=''
+                    alt='Image'
                   />
                   <span>{post.postDetail.pet}</span>
                 </div>
               </div>
             </>
           )}
-
-          {/* <p className='title'>Nearby Places</p>
-          <div className='listHorizontal'>
-            <div className='feature'>
-              <img
-                src='/school.png'
-                alt=''
-              />
-              <div className='featureText'>
-                <span>School</span>
-                <p>
-                  {post.postDetail.school > 999
-                    ? post.postDetail.school / 1000 + 'km'
-                    : post.postDetail.school + 'm'}{' '}
-                  away
-                </p>
-              </div>
-            </div>
-            <div className='feature'>
-              <img
-                src='/pet.png'
-                alt=''
-              />
-              <div className='featureText'>
-                <span>Bus Stop</span>
-                <p>{post.postDetail.bus}m away</p>
-              </div>
-            </div>
-            <div className='feature'>
-              <img
-                src='/fee.png'
-                alt=''
-              />
-              <div className='featureText'>
-                <span>Restaurant</span>
-                <p>{post.postDetail.restaurant}m away</p>
-              </div>
-            </div>
-          </div> */}
 
           <p className='title'>
             {post.type === 'Попутчики'
