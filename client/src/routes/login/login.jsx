@@ -48,6 +48,7 @@ function Login() {
             maxLength={20}
             type='text'
             placeholder='Имя пользователя'
+            autoComplete='username'
           />
           <input
             name='password'
@@ -56,6 +57,7 @@ function Login() {
             maxLength={20}
             required
             placeholder='Пароль'
+            autoComplete='current-password'
           />
           <button disabled={isLoading}>Войти</button>
           {error && <span>{error}</span>}

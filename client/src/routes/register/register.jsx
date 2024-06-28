@@ -64,6 +64,7 @@ function Register() {
             minLength={3}
             maxLength={20}
             placeholder='Имя пользователя'
+            autoComplete='username'
             required
           />
           <input
@@ -72,6 +73,7 @@ function Register() {
             placeholder='Почта'
             value={email}
             onChange={handleChange}
+            autoComplete='email'
             required
           />
           {!isValid && (
@@ -87,6 +89,7 @@ function Register() {
             minLength={6}
             maxLength={20}
             placeholder='Пароль'
+            autoComplete='current-password'
             required
           />
           <button disabled={isLoading}>Регистрация</button>

@@ -98,4 +98,12 @@
 }
 .card .textContainer .bottom .icons .icon:hover {
   background-color: lightgray;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    border: 1px solid #cdcdcd;
+    border-radius: 10pxY;
+    padding: 20px;
+  }
 }/*# sourceMappingURL=Card.css.map */

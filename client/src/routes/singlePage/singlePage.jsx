@@ -27,6 +27,20 @@ function SinglePage() {
     }
   };
 
+  const sendMessage = async () => {
+    if (!currentUser) {
+      navigate('/login');
+    }
+    try {
+      const res = await apiRequest.post('/chats', { receiverId: post.userId });
+      navigate('/profile', {
+        state: { chatId: res.data.id, receiver: post.user },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className='singlePage'>
       <div className='details'>
@@ -69,7 +83,10 @@ function SinglePage() {
       <div className='features'>
         <div className='wrapper'>
           <div className='buttons'>
-            <button className='sendMessage'>
+            <button
+              className='sendMessage'
+              onClick={sendMessage}
+            >
               <img
                 src='/mail.png'
                 alt='Image'

@@ -50,6 +50,10 @@ body {
 .profilePage .details .wrapper .title h1 {
   font-weight: 300;
 }
+.profilePage .details .wrapper .title .title-bg {
+  background-color: hwb(68 68% 0%);
+  padding: 10px;
+}
 .profilePage .details .wrapper .title button {
   padding: 12px 24px;
   background-color: #fece51;
@@ -84,7 +88,7 @@ body {
 }
 .profilePage .chatContainer {
   flex: 2;
-  background-color: #e5d7ff;
+  background-color: hwb(68 68% 0%);
   height: 100%;
 }
 @media (max-width: 1024px) {

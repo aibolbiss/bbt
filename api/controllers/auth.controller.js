@@ -15,6 +15,7 @@ export const register = async (req, res) => {
         username,
         email,
         password: hashedPassword,
+        notification: 0,
       },
     });
 

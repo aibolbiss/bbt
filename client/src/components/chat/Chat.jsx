@@ -1,35 +1,46 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState, useCallback } from 'react';
 import './chat.scss';
 import { AuthContext } from '../../context/AuthContext';
 import apiRequest from '../../lib/apiRequest';
 import { format } from 'timeago.js';
 import { SocketContext } from '../../context/SocketContext';
 import { useNotificationStore } from '../../lib/notificationStore';
+import { useLocation } from 'react-router-dom';
+
+// Aibol
 
 function Chat({ chats }) {
   const [chat, setChat] = useState(null);
   const { currentUser } = useContext(AuthContext);
   const { socket } = useContext(SocketContext);
-
+  const location = useLocation();
   const messageEndRef = useRef();
 
   const decrease = useNotificationStore((state) => state.decrease);
 
+  const handleOpenChat = useCallback(
+    async (id, receiver) => {
+      try {
+        const res = await apiRequest('/chats/' + id);
+        if (!res.data.seenBy.includes(currentUser.id)) {
+          decrease();
+        }
+        setChat({ ...res.data, receiver });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [currentUser.id, decrease]
+  );
+
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chat]);
-
-  const handleOpenChat = async (id, receiver) => {
-    try {
-      const res = await apiRequest('/chats/' + id);
-      if (!res.data.seenBy.includes(currentUser.id)) {
-        decrease();
-      }
-      setChat({ ...res.data, receiver });
-    } catch (err) {
-      console.log(err);
+  useEffect(() => {
+    if (location.state?.chatId && location.state?.receiver) {
+      handleOpenChat(location.state.chatId, location.state.receiver);
     }
-  };
+  }, [location.state, handleOpenChat]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,30 +88,26 @@ function Chat({ chats }) {
     <div className='chat'>
       <div className='messages'>
         <h1>Сообщения</h1>
-        {chats.length === 0 ? (
-          <p>У вас пока нету сообщений</p>
-        ) : (
-          chats?.map((c) => (
-            <div
-              className='message'
-              key={c.id}
-              style={{
-                backgroundColor:
-                  c.seenBy.includes(currentUser.id) || chat?.id === c.id
-                    ? 'white'
-                    : '#fecd514e',
-              }}
-              onClick={() => handleOpenChat(c.id, c.receiver)}
-            >
-              <img
-                src={c.receiver.avatar || '/noavatar.png'}
-                alt=''
-              />
-              <span>{c.receiver.username}</span>
-              <p>{c.lastMessage}</p>
-            </div>
-          ))
-        )}
+        {chats?.map((c) => (
+          <div
+            className='message'
+            key={c.id}
+            style={{
+              backgroundColor:
+                c.seenBy.includes(currentUser.id) || chat?.id === c.id
+                  ? 'white'
+                  : '#fecd514e',
+            }}
+            onClick={() => handleOpenChat(c.id, c.receiver)}
+          >
+            <img
+              src={c.receiver.avatar || '/noavatar.png'}
+              alt=''
+            />
+            <span>{c.receiver.username}</span>
+            <p>{c.lastMessage}</p>
+          </div>
+        ))}
       </div>
       {chat && (
         <div className='chatBox'>
@@ -145,7 +152,7 @@ function Chat({ chats }) {
           >
             <textarea
               name='text'
-              placeholder='Напишите что нибудь'
+              placeholder='Напишите что-нибудь'
             ></textarea>
             <button>Отправить</button>
           </form>

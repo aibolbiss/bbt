@@ -49,12 +49,12 @@ function ProfilePage() {
             <button onClick={handleLogout}>Выйти</button>
           </div>
           <div className='title'>
-            <h1>Мои посты</h1>
+            <h1 className='title-bg'>Мои посты</h1>
             <Link to='/add'>
               <button>Создать новый пост</button>
             </Link>
           </div>
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<p>Загрузка...</p>}>
             <Await
               resolve={data.postResponse}
               errorElement={<p>Ошибка при загрузке!</p>}
@@ -63,9 +63,9 @@ function ProfilePage() {
             </Await>
           </Suspense>
           <div className='title'>
-            <h1>Избранное</h1>
+            <h1 className='title-bg'>Избранное</h1>
           </div>
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<p>Загрузка...</p>}>
             <Await
               resolve={data.postResponse}
               errorElement={<p>Ошибка при загрузке!</p>}
@@ -82,6 +82,7 @@ function ProfilePage() {
               <img
                 style={{
                   width: 150,
+                  height: 150,
                 }}
                 src='/loading.gif'
               />

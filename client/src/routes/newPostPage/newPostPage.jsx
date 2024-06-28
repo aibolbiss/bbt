@@ -9,7 +9,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import InputMask from 'react-input-mask';
 // import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import markerIconUrl from '../../../public/geo-red.png';
+import markerIconUrl from '/geo-red.png';
 
 function NewPostPage() {
   const [value, setValue] = useState('');
